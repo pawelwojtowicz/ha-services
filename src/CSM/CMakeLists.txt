@@ -11,4 +11,4 @@ CActionFactory.cpp
 )
 
 target_link_libraries ( ${OUTPUT_NAME} Global UCL XMLParser )
-
+install( TARGETS ${OUTPUT_NAME} RUNTIME DESTINATION usr/lib )
