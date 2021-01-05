@@ -4,7 +4,7 @@
 #include "IAction.h"
 #include "CState.h"
 #include "CTransition.h"
-#include <UCL/CFastHash.h>
+#include <CFastHash.h>
 #include <algorithm>
 #include <stdio.h>
 namespace CSM

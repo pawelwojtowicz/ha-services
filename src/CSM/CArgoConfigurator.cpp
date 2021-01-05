@@ -1,25 +1,25 @@
 #include "CArgoConfigurator.h"
 #include "ICSMBuilder.h"
-#include <XMLParser/xmlParser.h>
+#include <xmlParser.h>
 #include <stdio.h>
 namespace CSM
 {
 
-static const char s_constXMI[] 							= {"XMI"};
+static const char s_constXMI[]				= {"XMI"};
 static const char s_constXMI_Content[] 			= {"XMI.content"};
-static const char s_constUML_Model[] 				= {"UML:Model"};
-static const char s_constUML_OwnedElement[] = {"UML:Namespace.ownedElement"};
-static const char s_constUML_StateMachine[]	= {"UML:StateMachine"};
+static const char s_constUML_Model[] 			= {"UML:Model"};
+static const char s_constUML_OwnedElement[] 		= {"UML:Namespace.ownedElement"};
+static const char s_constUML_StateMachine[]		= {"UML:StateMachine"};
 static const char s_constUML_TopState[]			= {"UML:StateMachine.top"};
 
 static const char s_constUML_Transitions[]		= {"UML:StateMachine.transitions"};
-static const char s_constUML_Transition[]			= {"UML:Transition"};
+static const char s_constUML_Transition[]		= {"UML:Transition"};
 static const char s_constUML_TransitionTrigger[] 	= {"UML:Transition.trigger"};
 static const char s_constUML_TransitionAction[]		= {"UML:Transition.effect"};
 static const char s_constUML_TransitionSource[]		= {"UML:Transition.source"};
 static const char s_constUML_TransitionTarget[]	 	= {"UML:Transition.target"};
 static const char s_constUML_TransitionGuard[]		= {"UML:Transition.guard"};
-static const char s_constUML_Guard[]							= {"UML:Guard"};
+static const char s_constUML_Guard[]			= {"UML:Guard"};
 
 
 

@@ -18,5 +18,6 @@ SystemEnvironment.cpp
 )
 
 target_link_libraries( ${OUTPUT_NAME} Global )
+target_include_directories( ${OUTPUT_NAME} INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
 
 
