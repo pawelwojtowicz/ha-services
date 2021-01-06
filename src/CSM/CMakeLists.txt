@@ -1,6 +1,6 @@
 project (CSM )
 
-SET( OUTPUT_NAME CSM )
+SET( OUTPUT_NAME csm )
 
 add_library ( ${OUTPUT_NAME} SHARED
 CState.cpp
@@ -10,5 +10,5 @@ CStateMachine.cpp
 CActionFactory.cpp
 )
 
-target_link_libraries ( ${OUTPUT_NAME} Global UCL XMLParser )
+target_link_libraries ( ${OUTPUT_NAME} global ucl xmlparser )
 install( TARGETS ${OUTPUT_NAME} RUNTIME DESTINATION lib )
