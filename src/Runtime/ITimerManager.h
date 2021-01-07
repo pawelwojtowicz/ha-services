@@ -1,5 +1,4 @@
-#ifndef RUNTIME_ITIMERMANAGER_H
-#define RUNTIME_ITIMERMANAGER_H
+#pragma once
 #include "GlobalTypes.h"
 
 namespace Runtime
@@ -35,4 +34,3 @@ private:
 };
 }
 
-#endif

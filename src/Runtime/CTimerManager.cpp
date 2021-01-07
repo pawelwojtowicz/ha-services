@@ -88,26 +88,23 @@ bool CTimerManager::StopTimer(const Int32 timerId)
 }
 
 
-void CTimerManager::HandleMessage( CMessage& message )
+void CTimerManager::TickTimer()
 {
-//	if ( msgId_Runtime_Timer_1000 == message.GetMessageId() )
-	{
-		UInt32 currentTime(GetCurrentTime());
+	UInt32 currentTime(GetCurrentTime());
 
-		for ( tTimerInfoIterator timerIter = m_timerInfoMap.begin() ; m_timerInfoMap.end() != timerIter ; ++timerIter )
+	for ( tTimerInfoIterator timerIter = m_timerInfoMap.begin() ; m_timerInfoMap.end() != timerIter ; ++timerIter )
+	{
+		if ( ( timerIter->second.active ) && ( timerIter->second.timerNextExpiration <= currentTime ) )
 		{
-			if ( ( timerIter->second.active ) && ( timerIter->second.timerNextExpiration <= currentTime ) )
+			timerIter->second.timerSubscriber->NotifyTimer(timerIter->first);
+			if (timerIter->second.timerPeriod > 0 )
 			{
-				timerIter->second.timerSubscriber->NotifyTimer(timerIter->first);
-				if (timerIter->second.timerPeriod > 0 )
-				{
-					timerIter->second.timerNextExpiration = currentTime + timerIter->second.timerPeriod;
-				}
-				else
-				{
-					timerIter->second.active = false;
-				} 
+				timerIter->second.timerNextExpiration = currentTime + timerIter->second.timerPeriod;
 			}
+			else
+			{
+				timerIter->second.active = false;
+			} 
 		}
 	}
 }

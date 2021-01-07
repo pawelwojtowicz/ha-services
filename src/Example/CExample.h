@@ -1,18 +1,15 @@
 #pragma once
 
-#include <CExecutable.h>
-#include <mosquittopp.h>
+#include <CRuntimeUnit.h>
 
 namespace Example
 {
 
-class CExample: Runtime::CExecutable
+class CExample: Runtime::CRuntimeUnit
 {
 public:
   CExample();
   virtual ~CExample();
-
-  Int32 Run() override;
 
 private:
  CExample( const CExample&);

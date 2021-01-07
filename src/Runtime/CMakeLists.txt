@@ -4,6 +4,8 @@ SET( OUTPUT_NAME runtime )
 
 add_library( ${OUTPUT_NAME} SHARED
 CExecutable.cpp
+CRuntimeUnit.cpp
+CMessenger.cpp
 executableMain.cpp
 CTimerManager.cpp
 )

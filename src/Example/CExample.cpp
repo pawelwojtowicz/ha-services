@@ -6,18 +6,12 @@ Example::CExample gs;
 namespace Example
 {
 CExample::CExample()
-: Runtime::CExecutable("Example")
+: Runtime::CRuntimeUnit("Example")
 {
 }
 
 CExample::~CExample()
 {
-}
-
-Int32 CExample::Run()
-{
-printf("Test\n");
-return 0;
 }
 
 }

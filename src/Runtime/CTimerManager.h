@@ -1,5 +1,4 @@
-#ifndef RUNTIME_CTIMERMANAGER_H
-#define RUNTIME_CTIMERMANAGER_H
+#pragma once
 #include <map>
 #include "ITimerManager.h"
 #include "CMessage.h"
@@ -10,7 +9,6 @@ namespace Runtime
 class ITimerListener;
 
 class CTimerManager: 	public ITimerManager
-			//public ISubscriber
 {
 	struct tTimerStruct
 	{
@@ -20,11 +18,14 @@ class CTimerManager: 	public ITimerManager
 		UInt32 timerNextExpiration;
 		ITimerListener* timerSubscriber;
 	};
-	typedef std::map<Int32,tTimerStruct> tTimerInfoMap;
-	typedef tTimerInfoMap::iterator tTimerInfoIterator;
+	using tTimerInfoMap = std::map<Int32,tTimerStruct>;
+	using tTimerInfoIterator = tTimerInfoMap::iterator;
 public:
 	CTimerManager();
 	virtual ~CTimerManager();
+
+	// Tick the timer as frequently as possible
+	virtual void TickTimer();
 
 private:
 	// creates a timer - returns unique timerId
@@ -42,10 +43,6 @@ private:
 	// Stops the timer, given by the Id	
 	virtual bool StopTimer(const Int32 timerId);
 
-	// Receives the message notification from the queue - the timer message is being equeued with the highest
-	// prio every 1s.
-	virtual void HandleMessage( CMessage& message );
-
 	virtual const UInt32 GetCurrentTime();
 
 private:
@@ -55,8 +52,7 @@ private:
 	tTimerInfoMap m_timerInfoMap;
 
 	Int32 m_nextFreeTimerId;
-
 };
 
 }
-#endif
+
