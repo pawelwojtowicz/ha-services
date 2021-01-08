@@ -25,7 +25,7 @@ private:
     //implementation of the IMessenger
     virtual bool Subscribe( const std::string& topic, IMsgSubscriber* subscriber ) override;
 
-    virtual bool Publish( const std::string& topic , const std::string& payload, const MQTT_QOS qos, bool retain );
+    virtual bool Publish( const std::string& topic , const std::string& payload, const int qos, bool retain );
 
 private:
     bool Connect();

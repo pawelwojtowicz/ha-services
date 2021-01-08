@@ -15,7 +15,7 @@ public:
 
     virtual bool Subscribe( const std::string& topic, IMsgSubscriber* subscriber ) = 0;
 
-    virtual bool Publish( const std::string& topic , const std::string& payload, const MQTT_QOS qos, bool retain ) = 0;
+    virtual bool Publish( const std::string& topic , const std::string& payload, const int qos, bool retain ) = 0;
 
 private:
 

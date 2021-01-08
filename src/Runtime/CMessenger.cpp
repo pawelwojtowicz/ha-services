@@ -44,20 +44,26 @@ bool CMessenger::Subscribe( const std::string& topic, IMsgSubscriber* subscriber
     auto subscriptionEntryIt = m_messageDispatchTable.find(topic);
     if (m_messageDispatchTable.end() != subscriptionEntryIt )
     {
-//        subscriptionEntryIt->second().first().insert( subscriber ) ;
-//        subscriptionEntryIt->second().second()++;
-
+        subscriptionEntryIt->second.first.insert( subscriber ) ;
+        subscriptionEntryIt->second.second++;
+        return true;
     }
     else
-
     {
+        if ( MOSQ_ERR_SUCCESS == subscribe(nullptr, topic.c_str() ) )
+        {
+            tSubscriberList subscribers;
+            subscribers.insert(subscriber);
+            tSubscriptionEntry newSubscription = std::make_pair( subscribers, 0);
+            m_messageDispatchTable.insert( tMessageDispatchTable::value_type( topic, newSubscription) );
+            return true;
+        }
     }
     
-
-    return Subscribe( topic, subscriber);
+    return false;
 }
 
-bool CMessenger::Publish( const std::string& topic , const std::string& payload, const MQTT_QOS qos, bool retain )
+bool CMessenger::Publish( const std::string& topic , const std::string& payload, const int qos, bool retain )
 {
     publish( nullptr, topic.c_str(), static_cast<int>(payload.size()), payload.c_str(), static_cast<int>(qos),retain);   
 }

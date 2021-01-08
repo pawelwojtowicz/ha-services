@@ -20,6 +20,9 @@ public:
 	//called right before shutdown - release all the resources here
 	virtual void Shutdown();
 
+private:
+	void HandleMessage( const std::string& topic, const std::string& payload);
+
 protected:
 	ITimerManager& GetTimerManager() { return m_timerManager; };
 
