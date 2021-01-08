@@ -4,6 +4,9 @@
 
 namespace Runtime
 {
+
+using MQTT_QOS = enum { MQTT_QOS_0 = 0, MQTT_QOS_1 = 1,MQTT_QOS_2 = 2, MQTT_QOS_3 = 3};
+
 class IMessenger
 {
 public:
@@ -13,6 +16,9 @@ public:
     virtual bool Subscribe( const std::string& topic, IMsgSubscriber& subscriber ) = 0;
 
     virtual bool Subscribe( const std::string& topicPrefix, const std::string& topicWildcard, IMsgSubscriber& subcriber) = 0;
+
+    virtual bool Publish( const std::string& topic , const std::string& payload, const MQTT_QOS qos, bool retain ) = 0;
+
 private:
 
 

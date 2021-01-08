@@ -25,17 +25,14 @@ void CRuntimeUnit::Initialize()
 
 Int32 CRuntimeUnit::Run()
 {
+	int c(0);
 	while(m_run)
 	{
-		printf("polling 1 \n");
 
 		m_messenger.PeekMesseges();
 
-		printf("polling 2 \n");
-
 		m_timerManager.TickTimer();
-
-		printf("polling 3 \n");
+		printf("polling %d \n", c++);
 	}
 
 	return m_unitReturnValue;
