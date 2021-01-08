@@ -13,9 +13,7 @@ public:
     IMessenger() {};
     virtual ~IMessenger() {};
 
-    virtual bool Subscribe( const std::string& topic, IMsgSubscriber& subscriber ) = 0;
-
-    virtual bool Subscribe( const std::string& topicPrefix, const std::string& topicWildcard, IMsgSubscriber& subcriber) = 0;
+    virtual bool Subscribe( const std::string& topic, IMsgSubscriber* subscriber ) = 0;
 
     virtual bool Publish( const std::string& topic , const std::string& payload, const MQTT_QOS qos, bool retain ) = 0;
 

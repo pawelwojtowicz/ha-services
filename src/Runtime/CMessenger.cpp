@@ -39,14 +39,22 @@ void CMessenger::Disconnect()
 }
 
 
-bool CMessenger::Subscribe( const std::string& topic, IMsgSubscriber& subscriber )
+bool CMessenger::Subscribe( const std::string& topic, IMsgSubscriber* subscriber )
 {
-    return Subscribe( topic, topic, subscriber);
-}
+    auto subscriptionEntryIt = m_messageDispatchTable.find(topic);
+    if (m_messageDispatchTable.end() != subscriptionEntryIt )
+    {
+//        subscriptionEntryIt->second().first().insert( subscriber ) ;
+//        subscriptionEntryIt->second().second()++;
 
-bool CMessenger::Subscribe( const std::string& topicPrefix, const std::string& topicWildcard, IMsgSubscriber& subcriber)
-{
-    return false;
+    }
+    else
+
+    {
+    }
+    
+
+    return Subscribe( topic, subscriber);
 }
 
 bool CMessenger::Publish( const std::string& topic , const std::string& payload, const MQTT_QOS qos, bool retain )
@@ -73,9 +81,23 @@ void CMessenger::on_disconnect(int rc )
     printf("Disconnect from broker\n");
 }
 
-void CMessenger::on_message(const struct mosquitto_message * message )
+void CMessenger::on_message(const struct mosquitto_message *message )
 {
+    for ( auto& subscription : m_messageDispatchTable )
+    {
+        bool matches(false);
+        mosqpp::topic_matches_sub(subscription.first.c_str(), message->topic, &matches);
+        if ( matches )
+        {
+            std::string topic( message->topic);
+            std::string payload( static_cast<const char*>(message->payload) , message->payloadlen );
 
+            for ( auto& subscriber : subscription.second.first )
+            {
+                subscriber->HandleMessage( topic, payload);
+            }
+        } 
+    }
 }
 
 }

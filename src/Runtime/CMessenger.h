@@ -1,6 +1,7 @@
 #pragma once
 #include "IMessenger.h"
 #include <mosquittopp.h>
+#include <set>
 
 
 namespace Runtime
@@ -8,6 +9,9 @@ namespace Runtime
 class CMessenger    : public IMessenger
                     , private mosqpp::mosquittopp
 {
+    using tSubscriberList = std::set<IMsgSubscriber*>;
+    using tSubscriptionEntry = std::pair<tSubscriberList, Int32 >;
+    using tMessageDispatchTable = std::map<std::string, tSubscriptionEntry>;
 public:
     CMessenger( const std::string& clientName );
     virtual ~CMessenger();
@@ -19,8 +23,7 @@ public:
 
 private:
     //implementation of the IMessenger
-    virtual bool Subscribe( const std::string& topic, IMsgSubscriber& subscriber );
-    virtual bool Subscribe( const std::string& topicPrefix, const std::string& topicWildcard, IMsgSubscriber& subcriber);
+    virtual bool Subscribe( const std::string& topic, IMsgSubscriber* subscriber ) override;
 
     virtual bool Publish( const std::string& topic , const std::string& payload, const MQTT_QOS qos, bool retain );
 
@@ -45,6 +48,7 @@ private:
     std::string m_brokerIP;
     Int32 m_mqttTcpPort;
 
+    tMessageDispatchTable m_messageDispatchTable;
 };
 
 }
