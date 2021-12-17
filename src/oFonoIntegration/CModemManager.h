@@ -1,8 +1,10 @@
 #pragma once
-
+#include <string>
+#include "CoFonoProxy.h"
+#include "IModemManagerEvents.h"
 namespace oFonoIntegration
 {
-class CModemManager
+class CModemManager : public IModemManagerEvents
 {
 public:
     CModemManager();
@@ -12,6 +14,12 @@ public:
     void Shutdown();
 
 private:
+  void NotifyModemAdded( const std::string& modemName) override;
+  void NotifyModemRemoved( const std::string& modemName ) override;
+
+private:
+  CoFonoProxy m_oFonoProxy;
+  
 
 };
 }
