@@ -17,7 +17,6 @@ public:
     bool Initialize();
     void Shutdown();
 
-
     tModemList GetModemInfo();
 private:
     std::unique_ptr<sdbus::IProxy> m_ofonoConnection;

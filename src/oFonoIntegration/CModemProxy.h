@@ -9,7 +9,7 @@ class CModemProxy
 {
 public:
   CModemProxy( const std::string& modemObjectPath, ITextMessageEvents& listener);
-  ~CModemProxy();
+  virtual ~CModemProxy();
 
   bool Initialize();
   void Shutdown();

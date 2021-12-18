@@ -21,6 +21,7 @@ public:
   void AddInterface( const std::string& interfaceName);
   void SetSystemPath( const std::string& sytemPath ) { m_systemPath = sytemPath; };
 
+  const std::string& GetDBUSModemPath() const { return m_dbusModemPath; };
   bool IsPowered() const { return m_powered; };
   bool IsConnected() const { return m_online; };
   bool IsSMSServiceActive() const;

@@ -3,10 +3,11 @@ project( oFonoIntegration )
 SET( OUTPUT_NAME ofonoMngr )
 
 add_library( ${OUTPUT_NAME} SHARED
-    CModemManager.cpp
-    CModemProxy.cpp
-    CModemContext.cpp
+    CModemContext.cpp    
     CoFonoProxy.cpp
+    CModemProxy.cpp
+    CModem.cpp
+    CModemManager.cpp
 )
 
 set_target_properties(${OUTPUT_NAME} PROPERTIES VERSION ${HOME_AUTOMATION_SERVICES_VERSION} SOVERSION ${HOME_AUTOMATION_SERVICES_VERSION} )

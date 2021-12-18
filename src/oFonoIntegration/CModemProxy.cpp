@@ -4,17 +4,16 @@
 
 namespace oFonoIntegration
 {
+
+
 CModemProxy::CModemProxy(const std::string& modemObjectPath, ITextMessageEvents& listener)
 : m_modemObjectPath(modemObjectPath)
 , m_rTextMessageEventsListener(listener)
 , m_modemConnection(nullptr)
 {
-
 }
-
 CModemProxy::~CModemProxy()
 {
-
 }
 
 bool CModemProxy::Initialize()
@@ -26,7 +25,7 @@ bool CModemProxy::Initialize()
   {
     m_modemConnection->uponSignal(s_incommingMessageSignalName).onInterface(s_messageManagerIfName).call( [this](std::string message, tMessageInfoDict msgInfo) {
         printf("Dostałem %s", message.c_str());
-        std::string sender(msgInfo["Sender"]);
+        std::string sender(msgInfo["Sender"].get<std::string>());
 
         this->m_rTextMessageEventsListener.NotifySMSReceived( sender, message) ;
     } );
@@ -39,17 +38,14 @@ bool CModemProxy::Initialize()
 
 void CModemProxy::Shutdown()
 {
-
 }
 
 void CModemProxy::SendSMS(const std::string& dstNumber, const std::string& message)
 {
-    if ( m_modemConnection )
-    {
-        m_modemConnection->callMethod(s_sendSMSMethodName).onInterface(s_messageManagerIfName).withArguments(dstNumber,message);
-    }
-
+  if ( m_modemConnection )
+  {
+    m_modemConnection->callMethod(s_sendSMSMethodName).onInterface(s_messageManagerIfName).withArguments(dstNumber,message);
+  }
 }
-
 
 }
