@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include "CoFonoProxy.h"
+#include "CModemContext.h"
 #include "IModemManagerEvents.h"
 namespace oFonoIntegration
 {
@@ -19,7 +20,5 @@ private:
 
 private:
   CoFonoProxy m_oFonoProxy;
-  
-
 };
 }

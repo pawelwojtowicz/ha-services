@@ -17,12 +17,20 @@ CModemManager::~CModemManager()
 bool CModemManager::Initialize()
 {
   m_oFonoProxy.Initialize();
+
+  auto modems = m_oFonoProxy.GetModemInfo();
+
+  for ( auto modem : modems )
+  {
+    modem.ToString();
+  }
   return true;
 }
 
 void CModemManager::Shutdown()
 {
 
+  m_oFonoProxy.Shutdown();
 }
 
 void CModemManager::NotifyModemAdded( const std::string& modemName)

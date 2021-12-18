@@ -5,6 +5,7 @@ SET( OUTPUT_NAME ofonoMngr )
 add_library( ${OUTPUT_NAME} SHARED
     CModemManager.cpp
     CModemProxy.cpp
+    CModemContext.cpp
     CoFonoProxy.cpp
 )
 

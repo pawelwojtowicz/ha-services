@@ -1,6 +1,5 @@
 #include "CoFonoProxy.h"
 #include "IModemManagerEvents.h"
-#include "ITextMessageEvents.h"
 #include "oFonoTypes.h"
 #include <stdio.h>
 
@@ -30,10 +29,6 @@ bool CoFonoProxy::Initialize()
         this->m_modemManagerListener.NotifyModemRemoved( name ); 
     } );
     m_ofonoConnection->finishRegistration();
-
-    GetModemInfo();
-
-    while(1) {int i = 0;}
  
     return true;
 }
@@ -43,18 +38,33 @@ void CoFonoProxy::Shutdown()
     
 }
 
-void CoFonoProxy::GetModemInfo()
+tModemList CoFonoProxy::GetModemInfo()
 {
-    if ( m_ofonoConnection )
-    {
-        toFonoModemInformation dBusModemInfo;
-        m_ofonoConnection->callMethod(s_getModemsMethodName).onInterface(s_modemManagerIfName).storeResultsTo( dBusModemInfo );    
+  tModemList modemList;
+  if ( m_ofonoConnection )
+  {
+    toFonoModemInformation dBusModemInfo;
+    m_ofonoConnection->callMethod(s_getModemsMethodName).onInterface(s_modemManagerIfName).storeResultsTo( dBusModemInfo );    
 
-        for ( auto iterek = dBusModemInfo.begin(); iterek != dBusModemInfo.end() ; ++iterek)
-        {
-            printf("--> %s\n", iterek->get<0>().c_str());
-        }
+    for ( auto modemIter = dBusModemInfo.begin(); modemIter != dBusModemInfo.end() ; ++modemIter)
+    {
+      CModemContext modemInfo;
+      
+      modemInfo.SetDBUSModemPath( modemIter->get<0>().c_str() );
+      auto modemProperties = modemIter->get<1>();
+
+      modemInfo.SetOnline( modemProperties["Online"].get<bool>() );
+      modemInfo.SetPowered( modemProperties["Powered"].get<bool>() );
+      modemInfo.SetSystemPath( modemProperties["SystemPath"].get<std::string>() );
+      tStringArray availableInterfaces = modemProperties["Interfaces"];
+      for ( auto interfaceName : availableInterfaces )
+      {
+        modemInfo.AddInterface(interfaceName);
+      }
+      modemList.push_back(modemInfo);
     }
+  }
+  return modemList;
 }
 
 }

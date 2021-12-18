@@ -1,4 +1,6 @@
 #pragma once
+#include "CModemContext.h"
+#include "IModemManagerEvents.h"
 #include <sdbus-c++/sdbus-c++.h>
 
 namespace oFonoIntegration
@@ -16,10 +18,7 @@ public:
     void Shutdown();
 
 
-    void GetModemInfo();
-
-    void SendSMS(const std::string& dstNumber, const std::string& message);
-
+    tModemList GetModemInfo();
 private:
     std::unique_ptr<sdbus::IProxy> m_ofonoConnection;
 

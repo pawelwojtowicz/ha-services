@@ -15,5 +15,6 @@ static const char* s_immediateMessageSignalName = "ImmediateMessage";
 
 
 using toFonoModemInformation = std::vector<sdbus::Struct<sdbus::ObjectPath,std::map<std::string,sdbus::Variant>>>;
+using tStringArray = std::vector<std::string>;
 using tMessageInfoDict = std::map<std::string, sdbus::Variant>;
 }
