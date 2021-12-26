@@ -12,6 +12,12 @@ public:
   CModem( const std::string& objectPath, const std::string& systemPath);
   virtual ~CModem();
 
+  bool Initialize();
+  void Shutdown();
+
+  void PowerOn();
+  void PowerOff();
+
   
 
   bool IsModemEqual( const std::string& objectPath, const std::string& systemPath );

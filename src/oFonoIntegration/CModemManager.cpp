@@ -1,4 +1,5 @@
 #include "CModemManager.h"
+#include <iostream>
 
 namespace oFonoIntegration
 {
@@ -18,19 +19,12 @@ CModemManager::~CModemManager()
 
 bool CModemManager::Initialize()
 {
+  std::cout << "bool CModemManager::Initialize()" << std::endl;
   m_oFonoProxy.Initialize();
 
-  if (m_modemAutoactivation)
-  {
+  RefreshModemList();
+  AttachDefaultModem();
 
-  }
-
-  auto modems = m_oFonoProxy.GetModemInfo();
-
-  for ( auto modem : modems )
-  {
-    modem.ToString();
-  }
   return true;
 }
 
@@ -41,24 +35,31 @@ void CModemManager::Shutdown()
 
 void CModemManager::NotifyModemAdded( const std::string& modemName)
 {
+  RefreshModemList();
+  AttachDefaultModem();
 
 }
 
 void CModemManager::NotifyModemRemoved( const std::string& modemName )
 {
-
+  RefreshModemList();
+  AttachDefaultModem();
 }
 
 void CModemManager::RefreshModemList()
 {
   m_attachedModems = m_oFonoProxy.GetModemInfo();
-
+  for (auto modemInfo : m_attachedModems )
+  {
+    modemInfo.ToString();
+  }
 
   if ( m_modemControl )
   {
     bool modemStillConnected(false);
     for ( auto modem : m_attachedModems )
     {
+      modem.ToString();
       if ( m_modemControl->IsModemEqual( modem.GetDBUSModemPath(), modem.GetSystemPath() ) )
       {
         modemStillConnected = true;
@@ -81,9 +82,14 @@ void CModemManager::AttachDefaultModem()
   {
     modemPath = m_attachedModems[0].GetDBUSModemPath();
     systemPath = m_attachedModems[0].GetSystemPath();  
+
+    m_modemControl = std::make_unique<CModem>(modemPath, systemPath);
+
+    m_modemControl->Initialize();
+    m_modemControl->PowerOn();
   }
 
-  m_modemControl = std::make_unique<CModem>(modemPath, systemPath);
+
 }
 
 }

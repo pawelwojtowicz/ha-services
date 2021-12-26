@@ -38,7 +38,7 @@ bool CModemContext::IsSMSServiceActive() const
 void CModemContext::ToString() const
 {
   std::cout << m_dbusModemPath.c_str() << " powered=" << m_powered << " online=" << m_online << std::endl;
-  std::cout << m_dbusModemPath.c_str() << "Interfaces [";
+  std::cout << m_dbusModemPath.c_str() << " interfaces [";
   for ( auto interfaceName : m_interfaces )
   {
     std::cout << interfaceName << ",";
