@@ -21,6 +21,8 @@ public:
   void Connect();
   void Disconnect();
 
+  void SendSMS( const std::string& destNumber, const std::string& message);
+
   
 
   bool IsModemEqual( const std::string& objectPath, const std::string& systemPath );

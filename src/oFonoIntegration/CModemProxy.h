@@ -14,11 +14,10 @@ public:
   bool Initialize();
   void Shutdown();
 
-  void PowerOn();
-  void PowerOff();
 
-  void Connect();
-  void Disconnect();
+  void SetPower( const bool power );
+
+  void SetOnline( const bool online );
 
   void SendSMS(const std::string& dstNumber, const std::string& message);
 

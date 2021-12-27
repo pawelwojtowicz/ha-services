@@ -27,7 +27,7 @@ bool CModemProxy::Initialize()
 
   m_modemConnection = sdbus::createProxy( s_ofonoEndpoint, m_modemObjectPath );
   std::cout << "udalo sie: " << m_modemObjectPath.c_str() << std::endl;
-/**
+
   if ( m_modemConnection )
   {
     m_modemConnection->uponSignal(s_incommingMessageSignalName).onInterface(s_messageManagerIfName).call( [this](std::string message, tMessageInfoDict msgInfo) {
@@ -40,7 +40,6 @@ bool CModemProxy::Initialize()
     result = true;
   }
 
-  */
   return result;
 }
 
@@ -48,35 +47,19 @@ void CModemProxy::Shutdown()
 {
 }
 
-void CModemProxy::PowerOn()
+void CModemProxy::SetPower( const bool power )
 {
   if (m_modemConnection)
   {
-    m_modemConnection->callMethod(s_modemMethodSetProperty).onInterface(s_modemIfName).withArguments(s_modemProperty_Powered, sdbus::Variant(true) );
+    m_modemConnection->callMethod(s_modemMethodSetProperty).onInterface(s_modemIfName).withArguments(s_modemProperty_Powered, sdbus::Variant(power) );
   }
 }
 
-void CModemProxy::PowerOff()
+void CModemProxy::SetOnline( const bool online )
 {
   if (m_modemConnection)
   {
-    m_modemConnection->callMethod(s_modemMethodSetProperty).onInterface(s_modemIfName).withArguments(s_modemProperty_Powered, sdbus::Variant(false) );
-  }
-}
-
-void CModemProxy::Connect()
-{
-  if (m_modemConnection)
-  {
-    m_modemConnection->callMethod(s_modemMethodSetProperty).onInterface(s_modemIfName).withArguments(s_modemProperty_Online, sdbus::Variant(true) );
-  }
-}
-
-void CModemProxy::Disconnect()
-{
-  if (m_modemConnection)
-  {
-    m_modemConnection->callMethod(s_modemMethodSetProperty).onInterface(s_modemIfName).withArguments(s_modemProperty_Online, sdbus::Variant(false) );
+    m_modemConnection->callMethod(s_modemMethodSetProperty).onInterface(s_modemIfName).withArguments(s_modemProperty_Online, sdbus::Variant(online) );
   }
 }
 

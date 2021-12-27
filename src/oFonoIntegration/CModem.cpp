@@ -31,25 +31,29 @@ void CModem::Shutdown()
 void CModem::PowerOn()
 {
   std::cout << "Power On" << std::endl;
-  m_modemProxy.PowerOn();
+  m_modemProxy.SetPower(true);
 }
 
 void CModem::PowerOff()
 {
-  m_modemProxy.PowerOff();
+  m_modemProxy.SetPower(false);
 }
 
 void CModem::Connect()
 {
   std::cout << "Connect to the network" << std::endl;
-  m_modemProxy.Connect() ;
+  m_modemProxy.SetOnline(true);
 }
 
 void CModem::Disconnect()
 {
-  m_modemProxy.Disconnect();
+  m_modemProxy.SetOnline(false);
 }
 
+void CModem::SendSMS( const std::string& destNumber, const std::string& message)
+{
+  m_modemProxy.SendSMS( destNumber, message);
+}
 
 
 bool CModem::IsModemEqual( const std::string& objectPath, const std::string& systemPath )
