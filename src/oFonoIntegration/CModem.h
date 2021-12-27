@@ -18,6 +18,9 @@ public:
   void PowerOn();
   void PowerOff();
 
+  void Connect();
+  void Disconnect();
+
   
 
   bool IsModemEqual( const std::string& objectPath, const std::string& systemPath );

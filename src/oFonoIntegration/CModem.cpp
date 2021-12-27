@@ -30,6 +30,7 @@ void CModem::Shutdown()
 
 void CModem::PowerOn()
 {
+  std::cout << "Power On" << std::endl;
   m_modemProxy.PowerOn();
 }
 
@@ -37,6 +38,18 @@ void CModem::PowerOff()
 {
   m_modemProxy.PowerOff();
 }
+
+void CModem::Connect()
+{
+  std::cout << "Connect to the network" << std::endl;
+  m_modemProxy.Connect() ;
+}
+
+void CModem::Disconnect()
+{
+  m_modemProxy.Disconnect();
+}
+
 
 
 bool CModem::IsModemEqual( const std::string& objectPath, const std::string& systemPath )

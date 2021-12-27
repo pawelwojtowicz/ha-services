@@ -87,6 +87,7 @@ void CModemManager::AttachDefaultModem()
 
     m_modemControl->Initialize();
     m_modemControl->PowerOn();
+    m_modemControl->Connect();
   }
 
 
