@@ -52,7 +52,7 @@ void CModemProxy::PowerOn()
 {
   if (m_modemConnection)
   {
-    m_modemConnection->callMethod("SetProperty").onInterface(s_modemIfName).withArguments("Powered", sdbus::Variant(true) );
+    m_modemConnection->callMethod(s_modemMethodSetProperty).onInterface(s_modemIfName).withArguments(s_modemProperty_Powered, sdbus::Variant(true) );
   }
 }
 
@@ -60,7 +60,7 @@ void CModemProxy::PowerOff()
 {
   if (m_modemConnection)
   {
-    m_modemConnection->callMethod("SetProperty").onInterface(s_modemIfName).withArguments("Powered", sdbus::Variant(false) );
+    m_modemConnection->callMethod(s_modemMethodSetProperty).onInterface(s_modemIfName).withArguments(s_modemProperty_Powered, sdbus::Variant(false) );
   }
 }
 
@@ -68,7 +68,7 @@ void CModemProxy::Connect()
 {
   if (m_modemConnection)
   {
-    m_modemConnection->callMethod("SetProperty").onInterface(s_modemIfName).withArguments("Online", sdbus::Variant(true) );
+    m_modemConnection->callMethod(s_modemMethodSetProperty).onInterface(s_modemIfName).withArguments(s_modemProperty_Online, sdbus::Variant(true) );
   }
 }
 
@@ -76,7 +76,7 @@ void CModemProxy::Disconnect()
 {
   if (m_modemConnection)
   {
-    m_modemConnection->callMethod("SetProperty").onInterface(s_modemIfName).withArguments("Online", sdbus::Variant(false) );
+    m_modemConnection->callMethod(s_modemMethodSetProperty).onInterface(s_modemIfName).withArguments(s_modemProperty_Online, sdbus::Variant(false) );
   }
 }
 

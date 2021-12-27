@@ -14,8 +14,9 @@ static const char* s_incommingMessageSignalName = "IncomingMessage";
 static const char* s_immediateMessageSignalName = "ImmediateMessage";
 
 static const char* s_modemIfName = "org.ofono.Modem";
-static const char* s_modemPower = "Powered";
-static const char* s_modemOnline = "Online";
+static const char* s_modemMethodSetProperty = "SetProperty";
+static const char* s_modemProperty_Powered = "Powered";
+static const char* s_modemProperty_Online = "Online";
 
 using toFonoModemInformation = std::vector<sdbus::Struct<sdbus::ObjectPath,std::map<std::string,sdbus::Variant>>>;
 using tStringArray = std::vector<std::string>;
