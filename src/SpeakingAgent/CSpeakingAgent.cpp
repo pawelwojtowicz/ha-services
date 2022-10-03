@@ -11,11 +11,21 @@ CSpeakingAgent::CSpeakingAgent()
     int timerId = GetTimerManager().CreateTimer(this);
     GetTimerManager().SetTimer(timerId,0,5);
     GetTimerManager().StartTimer(timerId);
+
+    m_ttsEngineWrapper.Initialize();
 }
 
 CSpeakingAgent::~CSpeakingAgent()
 {
 }
+
+void CSpeakingAgent::MQTTClientConnected()
+{
+  CRuntimeUnit::MQTTClientConnected();
+
+  GetMessenger().Subscribe("ttsOrders", this);
+}
+
 
 void CSpeakingAgent::NotifyTimer( const Int32& timerId )
 {
@@ -29,6 +39,11 @@ void CSpeakingAgent::NotifyTimer( const Int32& timerId )
 void CSpeakingAgent::HandleMessage( const std::string& topic, const std::string& payload)
 {
 	printf("received %s, %s\n", topic.c_str(), payload.c_str());
+
+  if ( "ttsOrders" == topic )
+  {
+    m_ttsEngineWrapper.Say(payload);
+  }
 }
 
 

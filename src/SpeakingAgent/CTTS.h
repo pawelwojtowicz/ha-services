@@ -15,6 +15,6 @@ public:
   bool Say( const std::string& phrase);
 private:
   std::unique_ptr<cst_voice> m_pFlite;
-}
+};
 
 }

@@ -2,10 +2,11 @@
 #include "CExecutable.h"
 #include "CMessenger.h"
 #include "CTimerManager.h"
+#include "IMessengerListener.h"
 
 namespace Runtime
 {
-class CRuntimeUnit: public CExecutable
+class CRuntimeUnit: public CExecutable, public IMessengerListener
 {
 public:
 	CRuntimeUnit( const std::string& runtimeUnitName );
@@ -19,6 +20,10 @@ public:
 
 	//called right before shutdown - release all the resources here
 	virtual void Shutdown();
+
+  virtual void MQTTClientConnected();
+
+  virtual void MQTTClientDisconnected();
 
 private:
 	void HandleMessage( const std::string& topic, const std::string& payload);

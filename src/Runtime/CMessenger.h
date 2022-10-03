@@ -1,5 +1,6 @@
 #pragma once
 #include "IMessenger.h"
+#include "IMessengerListener.h"
 #include <mosquittopp.h>
 #include <set>
 
@@ -16,7 +17,7 @@ public:
     CMessenger( const std::string& clientName );
     virtual ~CMessenger();
 
-    bool Initialize();
+    bool Initialize( IMessengerListener* rListener );
     void Shutdown();
 
     void PeekMesseges();
@@ -49,6 +50,8 @@ private:
     Int32 m_mqttTcpPort;
 
     tMessageDispatchTable m_messageDispatchTable;
+
+    IMessengerListener* m_rMessengerListener;
 };
 
 }

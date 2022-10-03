@@ -1,4 +1,5 @@
 #include "CTTS.h"
+#include <string>
 
 extern "C" 
 {
@@ -22,8 +23,7 @@ bool CTTS::Initialize()
 {
 	flite_init();
 	m_pFlite.reset(register_cmu_us_slt(NULL));
-	return ( m_pFlite );
-
+	return ( static_cast<bool>(m_pFlite) );
 }
 
 void CTTS::Shutdown()
@@ -37,7 +37,7 @@ bool CTTS::Say( const std::string& phrase)
 	
 	if ( m_pFlite )
 	{
-		phraseLength = flite_text_to_speech( text.c_str() , m_pFlite.get() , "play" );
+		phraseLength = flite_text_to_speech( phrase.c_str() , m_pFlite.get() , "play" );
 	}
 
 	return ( 0 != phraseLength );

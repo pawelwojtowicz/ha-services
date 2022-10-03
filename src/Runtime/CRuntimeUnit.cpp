@@ -19,7 +19,7 @@ CRuntimeUnit::~CRuntimeUnit()
 
 void CRuntimeUnit::Initialize()
 {
-	m_messenger.Initialize();
+	m_messenger.Initialize(this);
 }
 
 
@@ -41,6 +41,16 @@ Int32 CRuntimeUnit::Run()
 void CRuntimeUnit::Shutdown()
 {
 	m_messenger.Shutdown();
+}
+
+void CRuntimeUnit::MQTTClientConnected()
+{
+
+}
+
+void CRuntimeUnit::MQTTClientDisconnected()
+{
+
 }
 
 }

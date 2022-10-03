@@ -7,6 +7,7 @@ CMessenger::CMessenger( const std::string& clientId )
 : mosqpp::mosquittopp( clientId.c_str() )
 , m_brokerIP("127.0.0.1")
 , m_mqttTcpPort(1883)
+, m_rMessengerListener(nullptr)
 {
 	mosqpp::lib_init();
 }
@@ -16,11 +17,11 @@ CMessenger::~CMessenger()
 	mosqpp::lib_cleanup();
 }
 
-bool CMessenger::Initialize()
+bool CMessenger::Initialize( IMessengerListener* rListener )
 {
-    Connect();
-
-    return true;
+  m_rMessengerListener = rListener;
+  Connect();
+  return true;
 }
 
 void CMessenger::Shutdown()
@@ -65,7 +66,9 @@ bool CMessenger::Subscribe( const std::string& topic, IMsgSubscriber* subscriber
 
 bool CMessenger::Publish( const std::string& topic , const std::string& payload, const int qos, bool retain )
 {
-    publish( nullptr, topic.c_str(), static_cast<int>(payload.size()), payload.c_str(), static_cast<int>(qos),retain);   
+    publish( nullptr, topic.c_str(), static_cast<int>(payload.size()), payload.c_str(), static_cast<int>(qos),retain);
+
+    return true;
 }
 
 void CMessenger::PeekMesseges()
@@ -79,12 +82,20 @@ void CMessenger::PeekMesseges()
 
 void CMessenger::on_connect(int rc)
 {
+  if (nullptr != m_rMessengerListener)
+  {
     printf("Connected to the broker dog %d\n", rc);
+    m_rMessengerListener->MQTTClientConnected();
+  }
 }
 
 void CMessenger::on_disconnect(int rc )
 {
-    printf("Disconnect from broker\n");
+  printf("Disconnect from broker\n");
+  if (nullptr != m_rMessengerListener)
+  {
+    m_rMessengerListener->MQTTClientDisconnected();
+  }
 }
 
 void CMessenger::on_message(const struct mosquitto_message *message )
