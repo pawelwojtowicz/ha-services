@@ -24,14 +24,18 @@ bool CMessenger::Initialize( IMessengerListener* rListener )
   return true;
 }
 
+bool CMessenger::SetLWM( const std::string& lwmTopic, const std::string& lwmPayload)
+{
+  return ( MOSQ_ERR_SUCCESS == will_set(lwmTopic.c_str(), lwmPayload.size(), lwmPayload.c_str(), 2, true) );
+}
+
 void CMessenger::Shutdown()
 {
-
 }
 
 bool CMessenger::Connect()
 {
-    return ( MOSQ_ERR_SUCCESS != connect(m_brokerIP.c_str(), m_mqttTcpPort ) );
+  return ( MOSQ_ERR_SUCCESS != connect(m_brokerIP.c_str(), m_mqttTcpPort ) );
 }
 
 void CMessenger::Disconnect()

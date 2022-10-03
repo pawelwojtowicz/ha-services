@@ -9,6 +9,7 @@ CRuntimeUnit::CRuntimeUnit( const std::string& runtimeUnitName  )
 , m_messenger(runtimeUnitName)
 , m_run(true)
 , m_unitReturnValue(0)
+, m_statusMsgTopic( "wojtech/" + runtimeUnitName + "/status")
 {
 }
 
@@ -25,14 +26,10 @@ void CRuntimeUnit::Initialize()
 
 Int32 CRuntimeUnit::Run()
 {
-	int c(0);
 	while(m_run)
 	{
-
 		m_messenger.PeekMesseges();
-
 		m_timerManager.TickTimer();
-		printf("polling %d \n", c++);
 	}
 
 	return m_unitReturnValue;
@@ -45,12 +42,12 @@ void CRuntimeUnit::Shutdown()
 
 void CRuntimeUnit::MQTTClientConnected()
 {
-
+  m_messenger.SetLWM(m_statusMsgTopic, "Offline");
+  m_messenger.Publish( m_statusMsgTopic, "Online", 2, true);
 }
 
 void CRuntimeUnit::MQTTClientDisconnected()
 {
-
 }
 
 }

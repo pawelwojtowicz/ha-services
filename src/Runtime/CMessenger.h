@@ -4,7 +4,6 @@
 #include <mosquittopp.h>
 #include <set>
 
-
 namespace Runtime
 {
 class CMessenger    : public IMessenger
@@ -22,11 +21,11 @@ public:
 
     void PeekMesseges();
 
-private:
-    //implementation of the IMessenger
-    virtual bool Subscribe( const std::string& topic, IMsgSubscriber* subscriber ) override;
+    bool SetLWM( const std::string& lwmTopic, const std::string& lwmPayload);
 
+    //implementation of the IMessenger
     virtual bool Publish( const std::string& topic , const std::string& payload, const int qos, bool retain );
+    virtual bool Subscribe( const std::string& topic, IMsgSubscriber* subscriber ) override;
 
 private:
     bool Connect();

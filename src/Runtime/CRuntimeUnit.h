@@ -41,6 +41,8 @@ private:
 	CTimerManager m_timerManager;
 
 	Int32 m_unitReturnValue;
+
+  std::string m_statusMsgTopic;
 };
 
 }
