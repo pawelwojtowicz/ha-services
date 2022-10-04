@@ -1,8 +1,10 @@
 #pragma once
 #include "CExecutable.h"
+#include "CLogger.h"
 #include "CMessenger.h"
 #include "CTimerManager.h"
 #include "IMessengerListener.h"
+
 
 namespace Runtime
 {
@@ -34,7 +36,9 @@ protected:
 	IMessenger& GetMessenger() { return m_messenger; };
 
 private:
-    bool m_run;
+  bool m_run;
+  
+  CLogger m_logger;
 
 	CMessenger m_messenger;
 

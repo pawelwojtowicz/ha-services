@@ -6,17 +6,17 @@
 #include <map>
 #include <string>
 
-typedef unsigned char 	UInt8;
-typedef unsigned short 	UInt16;
-typedef unsigned int 		UInt32;
-typedef char						Int8;
-typedef short						Int16;
-typedef int							Int32;
-typedef int64_t					Int64;
-typedef uint64_t				UInt64;
+typedef unsigned char   UInt8;
+typedef unsigned short  UInt16;
+typedef unsigned int    UInt32;
+typedef char            Int8;
+typedef short           Int16;
+typedef int             Int32;
+typedef int64_t         Int64;
+typedef uint64_t        UInt64;
 
-typedef float						Real32;
-typedef double					Real64;
+typedef float           Real32;
+typedef double          Real64;
 
 typedef std::list<std::string> tStringList;
 typedef std::vector<std::string> tStringVector;

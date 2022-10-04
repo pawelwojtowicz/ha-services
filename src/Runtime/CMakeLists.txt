@@ -8,6 +8,12 @@ CRuntimeUnit.cpp
 CMessenger.cpp
 executableMain.cpp
 CTimerManager.cpp
+CLogger.cpp
+CLogger.h
+CLoggerMsg.cpp
+CLoggerMsg.h
+ILogger.h
+Logger.h
 )
 
 set_target_properties(${OUTPUT_NAME} PROPERTIES VERSION ${HOME_AUTOMATION_SERVICES_VERSION} SOVERSION ${HOME_AUTOMATION_SERVICES_VERSION} )

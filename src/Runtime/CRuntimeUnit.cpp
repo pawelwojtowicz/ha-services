@@ -6,6 +6,7 @@ namespace Runtime
 {
 CRuntimeUnit::CRuntimeUnit( const std::string& runtimeUnitName  )
 : CExecutable(runtimeUnitName)
+, m_logger( runtimeUnitName )
 , m_messenger(runtimeUnitName)
 , m_run(true)
 , m_unitReturnValue(0)
@@ -20,6 +21,7 @@ CRuntimeUnit::~CRuntimeUnit()
 
 void CRuntimeUnit::Initialize()
 {
+  m_logger.Initialize();
 	m_messenger.Initialize(this);
 }
 
@@ -38,6 +40,7 @@ Int32 CRuntimeUnit::Run()
 void CRuntimeUnit::Shutdown()
 {
 	m_messenger.Shutdown();
+  m_logger.Shutdown();
 }
 
 void CRuntimeUnit::MQTTClientConnected()
