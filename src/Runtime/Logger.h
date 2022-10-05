@@ -10,5 +10,5 @@
         if ( CLoggerMsg::ZoneEnabled( zone ) )        \
         {                                             \
           CLoggerMsg msg( zone, __FILE__, __LINE__);  \
-          msg->LogText  logMsg                        \
-        }                                             \
+          msg.LogText  logMsg ;                       \
+        }

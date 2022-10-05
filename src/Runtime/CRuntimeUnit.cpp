@@ -1,4 +1,5 @@
 #include "CRuntimeUnit.h"
+#include "Logger.h"
 #include <stdio.h>
 #include <cstdlib>
 
@@ -21,6 +22,7 @@ CRuntimeUnit::~CRuntimeUnit()
 
 void CRuntimeUnit::Initialize()
 {
+  HA_LOG(INFO, ("Initializing the runtime unit"));
   m_logger.Initialize();
 	m_messenger.Initialize(this);
 }
