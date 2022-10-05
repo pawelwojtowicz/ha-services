@@ -1,4 +1,5 @@
 #include "CMessenger.h"
+#include "Logger.h"
 
 namespace Runtime
 {
@@ -88,7 +89,7 @@ void CMessenger::on_connect(int rc)
 {
   if (nullptr != m_rMessengerListener)
   {
-    printf("Connected to the broker dog %d\n", rc);
+    HA_LOG(INFO, ("Connected to the broker status=[%d]", rc));
     m_rMessengerListener->MQTTClientConnected();
   }
 }
@@ -98,6 +99,7 @@ void CMessenger::on_disconnect(int rc )
   printf("Disconnect from broker\n");
   if (nullptr != m_rMessengerListener)
   {
+    HA_LOG(INFO, ("Disconnected from the broker status=[%d]", rc));
     m_rMessengerListener->MQTTClientDisconnected();
   }
 }
